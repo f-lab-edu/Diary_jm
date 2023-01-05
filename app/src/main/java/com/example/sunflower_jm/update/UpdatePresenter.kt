@@ -12,14 +12,19 @@ class UpdatePresenter(
 ) : UpdateContract.Presenter {
 
     override fun updateContent() {
-        if (itemTitle.isBlank() || itemContent.isBlank()) {
-            view.makeToast("모든 항목을 채워주세요!")
-        } else {
-            Thread {
-                diaryDao.updateItem(DiaryEntity(id, itemTitle, itemContent))
-            }.start()
-            view.makeToast("수정되었습니다.")
-        }
+        Thread {
+            diaryDao.updateItem(DiaryEntity(id, itemTitle, itemContent))
+        }.start()
+        view.finishActivity("수정되었습니다.")
     }
+
+    override fun makeMap() {
+        val map: HashMap<String, String> = hashMapOf(
+            "title" to itemTitle,
+            "content" to itemContent
+        )
+        view.sendResult(map)
+    }
+
 
 }

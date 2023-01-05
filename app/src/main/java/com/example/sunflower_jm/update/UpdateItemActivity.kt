@@ -16,13 +16,14 @@ import com.example.sunflower_jm.db.DiaryEntity
 class UpdateItemActivity : AppCompatActivity(), UpdateContract.View {
 
     lateinit var binding: UpdateItemBinding
-    lateinit var db : AppDatabase
+    lateinit var db: AppDatabase
     lateinit var diaryDao: DiaryDao
 
-    private lateinit var item : DiaryEntity
+    private lateinit var item: DiaryEntity
 
     private val presenter by lazy {
-        UpdatePresenter(item.id!!,
+        UpdatePresenter(
+            item.id!!,
             binding.editTitle.text.toString(),
             binding.editContent.text.toString(),
             diaryDao,
@@ -40,8 +41,11 @@ class UpdateItemActivity : AppCompatActivity(), UpdateContract.View {
         diaryDao = db.getDiaryDao()
 
         binding.btnUpdateCompletion.setOnClickListener {
-            sentResult()
-            presenter.updateContent()
+            if (binding.editTitle.text.isBlank() || binding.editContent.text.isBlank()) {
+                Toast.makeText(this, "모든 항목을 채워주세요!", Toast.LENGTH_SHORT).show()
+            } else {
+                presenter.updateContent()
+            }
         }
 
         item = intent.getSerializableExtra(KEY_DATA) as DiaryEntity
@@ -49,18 +53,16 @@ class UpdateItemActivity : AppCompatActivity(), UpdateContract.View {
         binding.editContent.text = Editable.Factory.getInstance().newEditable(item.content)
 
     }
-    override fun makeToast(message: String) {
+
+    override fun finishActivity(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        presenter.makeMap()
         finish()
     }
 
-    private fun sentResult() {
-        val list = ArrayList<String>()
-        list.add(binding.editTitle.text.toString())
-        list.add(binding.editContent.text.toString())
+    override fun sendResult(map: HashMap<String, String>) {
         setResult(Activity.RESULT_OK, Intent().apply {
-            Log.e("set",list.toString())
-            putExtra("result", list)
+            putExtra("result", map)
         })
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sunflower_jm.databinding.ItemBinding
 import com.example.sunflower_jm.db.DiaryEntity
+import com.example.sunflower_jm.detail.DetailActivity
 
 /*
 RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>()

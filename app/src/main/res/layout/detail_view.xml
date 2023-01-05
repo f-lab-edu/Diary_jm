@@ -10,9 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="#FFFFFF"
-        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/detail_title"
         android:scaleType="centerCrop"
-        android:src="@drawable/sample_img"
+        android:src="@drawable/sample"
         />
 
     <TextView

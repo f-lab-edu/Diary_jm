@@ -15,6 +15,6 @@ data class
 @Entity
 data class DiaryEntity (
     @PrimaryKey(autoGenerate = true) var id : Int? = null,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "content") val content: String
+    @ColumnInfo(name = "title") var title: String,
+    @ColumnInfo(name = "content") var content: String
 ) : java.io.Serializable
